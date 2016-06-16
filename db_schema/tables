@@ -1,0 +1,12 @@
+CREATE TABLE `raw2` (
+  `unix_secs` int(11) unsigned NOT NULL default '0', 
+  `dpkts` int(11) unsigned NOT NULL default '0',
+  `doctets` int(11) unsigned NOT NULL default '0',
+  `first` int(11) unsigned NOT NULL default '0',
+  `last` int(11) unsigned NOT NULL default '0',
+  `srcaddr` varchar(15) NOT NULL default '0',
+  `dstaddr` varchar(15) NOT NULL default '0',
+  `srcport` smallint(5) unsigned NOT NULL default '0',
+  `dstport` smallint(5) unsigned NOT NULL default '0',
+  `prot` tinyint(3) unsigned NOT NULL default '0'
+  );
