@@ -55,14 +55,6 @@ ip link set dev ifb0 up
 tc qdisc add dev ifb0 root handle 3: htb default 3
 tc class add dev ifb0 parent 3: classid 3:3 htb rate ${DEFAULT_UP_SPEED}kbit
 
-# host rule (for later)
-#tc class add dev ifb0 parent 3:3 classid 3:33 htb rate 64kbit
-
-# Packets marked with "3" on IFB flow through class 3:33
-
-# host rule (for later)
-#tc filter add dev ifb0 parent 3:0 protocol ip handle 3 fw flowid 3:33
-
 # Forward all ingress traffic on internet interface to the IFB device
 tc qdisc add dev $EXTDEV ingress handle ffff:
 tc filter add dev $EXTDEV parent ffff: protocol ip \
@@ -99,7 +91,7 @@ iptables -A FORWARD -s ${LOCAL_NET_ADDRESS}/${LOCAL_NET_MASK} -d ${LOCAL_NET_ADD
 
 # allow everything on gw from/to external iface
 iptables -A INPUT -i $EXTDEV -j ACCEPT
-iptables -A OUTPUT -o $INTDEV -j ACCEPT
+iptables -A OUTPUT -o $EXTDEV -j ACCEPT
 
 
 iptables -N internet -t mangle
